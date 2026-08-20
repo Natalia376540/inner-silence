@@ -1,0 +1,47 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "articles"
+    label: "Статьи"
+    folder: "articles"
+    create: true
+    slug: "{{slug}}"
+
+    fields:
+      - label: "Раздел"
+        name: "section"
+        widget: "select"
+        options:
+          - "Женщина"
+          - "Мужчина"
+          - "Стиль"
+          - "Красота"
+          - "Дом"
+          - "Культура"
+          - "Деньги"
+          - "Эссе"
+          - "Бестиарии"
+          - "Книги"
+          - "Кулинария без проблем"
+
+      - label: "Название статьи"
+        name: "title"
+        widget: "string"
+
+      - label: "Короткое описание"
+        name: "description"
+        widget: "text"
+
+      - label: "Фотография"
+        name: "image"
+        widget: "image"
+        required: false
+
+      - label: "Текст статьи"
+        name: "body"
+        widget: "markdown"
