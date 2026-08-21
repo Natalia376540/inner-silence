@@ -1,0 +1,33 @@
+media:
+input: media
+output: /media
+content:
+name: articles
+label: Статьи
+type: file
+path: data.json
+format: json
+list: true
+fields:
+name: id
+label: ID
+type: string
+readonly: true
+name: section
+label: Раздел
+type: string
+name: title
+label: Заголовок
+type: string
+name: description
+label: Описание
+type: text
+name: text
+label: Текст статьи
+type: rich-text
+name: photo
+label: Фото
+type: text
+settings:
+content:
+merge: true
