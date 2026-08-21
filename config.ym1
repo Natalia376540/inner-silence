@@ -1,47 +1,58 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Natalia376540/внутренняя-тишина
   branch: main
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "articles"
-    label: "Статьи"
-    folder: "articles"
-    create: true
-    slug: "{{slug}}"
+  - name: "content"
+    label: "Контент"
+    files:
 
-    fields:
-      - label: "Раздел"
-        name: "section"
-        widget: "select"
-        options:
-          - "Женщина"
-          - "Мужчина"
-          - "Стиль"
-          - "Красота"
-          - "Дом"
-          - "Культура"
-          - "Деньги"
-          - "Эссе"
-          - "Бестиарии"
-          - "Книги"
-          - "Кулинария без проблем"
+      - label: "Статьи"
+        name: "articles"
+        file: "data.json"
+        fields:
+          - label: "Статьи"
+            name: "articles"
+            widget: "list"
+            fields:
 
-      - label: "Название статьи"
-        name: "title"
-        widget: "string"
+              - label: "ID"
+                name: "id"
+                widget: "string"
 
-      - label: "Короткое описание"
-        name: "description"
-        widget: "text"
+              - label: "Раздел"
+                name: "section"
+                widget: "select"
+                options:
+                  - "Женщина"
+                  - "Мужчина"
+                  - "Стиль"
+                  - "Красота"
+                  - "Дом"
+                  - "Культура"
+                  - "Деньги"
+                  - "Эссе"
+                  - "Бестиарии"
+                  - "Книги"
+                  - "Кулинария без проблем"
 
-      - label: "Фотография"
-        name: "image"
-        widget: "image"
-        required: false
+              - label: "Название статьи"
+                name: "title"
+                widget: "string"
 
-      - label: "Текст статьи"
-        name: "body"
-        widget: "markdown"
+              - label: "Короткое описание"
+                name: "description"
+                widget: "text"
+
+              - label: "Текст статьи"
+                name: "text"
+                widget: "markdown"
+
+              - label: "Фотография"
+                name: "photo"
+                widget: "image"
+                required: false
