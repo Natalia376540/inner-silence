@@ -1,58 +1,684 @@
-<!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width,initial-scale=1.0"> <title>INNER SILENCE — Изнутри тишины</title> <style> *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:#f3efe8;color:#171614;font-family:Arial,Helvetica,sans-serif} button,input,textarea,select{font-family:inherit} .header{ position:sticky;top:0;z-index:50;background:rgba(243,239,232,.97); border-bottom:1px solid #d5cec4 } .brand{text-align:center;padding:22px 10px 8px;font:27px Georgia,serif;letter-spacing:.22em} .subtitle{text-align:center;font-size:9px;letter-spacing:.3em;margin-bottom:20px;color:#625d55} .navigation{ display:flex;justify-content:center;gap:22px;overflow-x:auto; padding:0 18px 17px;white-space:nowrap } .navigation button{ border:0;background:none;padding:0;color:#171614;font-size:9px; letter-spacing:.14em;cursor:pointer } .navigation button.active{border-bottom:1px solid #171614;padding-bottom:5px} .hero{ position:relative;min-height:calc(100vh - 105px);overflow:hidden;background:#918b82 } .hero-image{position:absolute;inset:0;background-position:center;background-size:cover} .hero-overlay{ position:absolute;inset:0; background:linear-gradient(to bottom,rgba(0,0,0,.08),rgba(0,0,0,.1) 45%,rgba(0,0,0,.58)) } .hero-top{ position:absolute;top:35px;left:45px;right:45px; display:flex;justify-content:space-between;color:white;font-size:9px;letter-spacing:.2em } .hero-content{position:absolute;left:7vw;right:7vw;bottom:7vw;color:white} .hero-number{font-size:9px;letter-spacing:.25em;margin-bottom:25px} .hero-title{font:normal clamp(52px,8vw,110px)/.88 Georgia,serif;max-width:1000px;margin:0 0 30px} .hero-description{font:19px/1.5 Georgia,serif;max-width:580px} .hero-link{ display:inline-block;margin-top:35px;padding-bottom:6px;border-bottom:1px solid white; color:white;text-decoration:none;font-size:9px;letter-spacing:.18em } .intro{padding:120px 8vw 90px} .intro-number{font-size:9px;letter-spacing:.25em;margin-bottom:35px} .intro-title{font:normal clamp(55px,8vw,105px)/.88 Georgia,serif;margin:0} .intro-text{font:20px/1.65 Georgia,serif;max-width:650px;margin-top:45px;color:#5b564f} .editorial-grid{ display:grid;grid-template-columns:1.45fr .8fr;gap:50px;padding:30px 7vw 120px } .feature{cursor:pointer} .feature-image{width:100%;height:620px;object-fit:cover;display:block;background:#d4cec4} .feature-meta,.small-meta{font-size:9px;letter-spacing:.2em;color:#77716a;margin-top:18px} .feature-title{font:normal 48px/1 Georgia,serif;margin:12px 0} .feature-description,.small-description{font:17px/1.5 Georgia,serif;color:#5e5952} .side-column{display:flex;flex-direction:column;gap:65px} .small-card{cursor:pointer} .small-image{width:100%;height:280px;object-fit:cover;display:block;background:#d4cec4} .small-title{font:normal 30px/1.05 Georgia,serif;margin:12px 0} .section-page,.article-page{display:none} .section-header{padding:90px 8vw 65px;border-bottom:1px solid #d5cec4} .back{ border:0;background:none;padding:0;font-size:9px;letter-spacing:.18em; cursor:pointer;margin-bottom:50px } .section-label,.article-category{font-size:9px;letter-spacing:.25em;color:#777} .section-title,.article-title{font:normal clamp(55px,8vw,105px)/.9 Georgia,serif;margin:25px 0} .section-description,.article-lead{max-width:700px;font:19px/1.6 Georgia,serif;color:#5d5851} .article-grid{ display:grid;grid-template-columns:repeat(2,1fr); gap:60px 35px;padding:70px 7vw 120px } .article-card{cursor:pointer} .article-card-image{width:100%;height:480px;object-fit:cover;display:block;background:#d4cec4} .article-card-title{font:normal 38px/1 Georgia,serif;margin:13px 0} .article-card-description{font:16px/1.5 Georgia,serif;color:#625d56} .article-header{padding:90px 8vw 55px} .article-main-image{ width:86%;max-height:760px;object-fit:cover;display:block; margin:20px auto 80px } .article-body{ max-width:760px;margin:0 auto 130px;padding:0 25px; font:20px/1.85 Georgia,serif } .empty{ grid-column:1/-1;text-align:center;padding:100px 20px; font:22px Georgia,serif;color:#777 } .editor-open{ position:fixed;right:20px;bottom:20px;z-index:100; border:1px solid #171614;background:#171614;color:white; padding:14px 20px;font-size:9px;letter-spacing:.15em;cursor:pointer } .editor{ display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.65); overflow:auto;padding:20px } .editor.show{display:block} .editor-box{max-width:850px;margin:30px auto;background:#f3efe8;padding:40px} .editor-close{float:right;border:0;background:none;font-size:28px;cursor:pointer} .editor-box h2{font:normal 38px Georgia,serif} .editor-tabs{ display:flex;gap:25px;border-bottom:1px solid #ccc; padding-bottom:15px;margin-bottom:30px;overflow-x:auto } .editor-tabs button{ border:0;background:none;font-size:10px;letter-spacing:.15em; cursor:pointer;white-space:nowrap } .editor-tabs button.active{border-bottom:1px solid;padding-bottom:5px} .editor-panel{display:none} .editor-panel.active{display:block} .field{margin:22px 0} .field label{ display:block;font-size:9px;letter-spacing:.18em;margin-bottom:8px } .field input,.field textarea,.field select{ width:100%;border:1px solid #c8c2b8;background:white; padding:13px;font-size:15px } .field textarea{min-height:160px;resize:vertical} .field textarea.large{min-height:300px} .preview{ display:none;max-width:100%;max-height:300px; margin-top:12px;object-fit:cover } .save,.new-button{ border:1px solid #171614;background:#171614;color:white; padding:14px 22px;font-size:9px;letter-spacing:.15em;cursor:pointer } .new-button{background:transparent;color:#171614;margin-left:10px} .list{margin-top:45px;border-top:1px solid #ccc} .list-row{ display:flex;justify-content:space-between;align-items:center; gap:20px;padding:18px 0;border-bottom:1px solid #ddd } .list-info{font:18px Georgia,serif} .list-info small{ display:block;font:8px Arial,sans-serif; letter-spacing:.15em;color:#888;margin-top:5px } .list-buttons{display:flex;gap:8px} .list-buttons button{ border:1px solid #aaa;background:transparent; padding:8px 10px;font-size:8px;cursor:pointer } footer{ border-top:1px solid #cfc8be;padding:40px 7vw; display:flex;justify-content:space-between;font-size:9px;letter-spacing:.18em } @media(max-width:800px){ .brand{font-size:21px} .navigation{justify-content:flex-start} .hero{min-height:75vh} .hero-top{left:20px;right:20px;top:25px} .hero-content{left:25px;right:25px;bottom:45px} .hero-title{font-size:55px} .intro{padding:80px 25px} .editorial-grid{grid-template-columns:1fr;padding:20px 25px 80px} .feature-image{height:450px} .article-grid{grid-template-columns:1fr;padding:50px 25px 80px} .article-card-image{height:400px} .article-header{padding:70px 25px 50px} .article-main-image{width:100%;margin-bottom:60px} .editor-box{padding:25px 20px;margin:10px auto} .list-row{flex-direction:column;align-items:flex-start} footer{flex-direction:column;gap:15px} } </style> </head> <body> <header class="header"> <div class="brand">INNER SILENCE</div> <div class="subtitle">ИЗНУТРИ ТИШИНЫ · DIGITAL MAGAZINE</div> <nav class="navigation"> <button class="active" data-section="Главная">ГЛАВНАЯ</button> <button data-section="Женщина">ЖЕНЩИНА</button> <button data-section="Мужчина">МУЖЧИНА</button> <button data-section="Стиль">СТИЛЬ</button> <button data-section="Красота">КРАСОТА</button> <button data-section="Дом">ДОМ</button> <button data-section="Культура">КУЛЬТУРА</button> <button data-section="Деньги">ДЕНЬГИ</button> <a href="https://vk.ru/it.noir" target="_blank" rel="noopener" style="color:#171614;text-decoration:none;font-size:10px;letter-spacing:.12em">ВК</a> <button data-section="Эссе">ЭССЕ</button> <button data-section="Бестиарии">БЕСТИАРИИ</button> <button data-section="Книги">КНИГИ</button> <button data-section="Кулинария без проблем">КУЛИНАРИЯ БЕЗ ПРОБЛЕМ</button> </nav> </header> <main> <section id="home"> <div class="hero"> <div class="hero-image" id="heroImage"></div> <div class="hero-overlay"></div> <div class="hero-top"> <span>INNER SILENCE</span> <span id="heroIssue">№ 01 · АВГУСТ 2026</span> </div> <div class="hero-content"> <div class="hero-number">ИЗНУТРИ ТИШИНЫ</div> <h1 class="hero-title" id="heroTitle"> Жить так,<br> чтобы чувствовать<br> себя живой. </h1> <div class="hero-description" id="heroDescription"> Журнал о женщине, мужчине, стиле, качестве жизни, культуре и том, что происходит внутри нас. </div>
-.navigation a{color:#171614;text-decoration:none;font-size:10px;letter-spacing:.12em} .hero{position:relative;min-height:calc(100vh - 105px);overflow:hidden;background:#918b82} .hero-image{position:absolute;inset:0;background-position:center;background-size:cover} .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08),rgba(0,0,0,.1) 45%,rgba(0,0,0,.58))} .hero-top{position:absolute;top:35px;left:45px;right:45px;display:flex;justify-content:space-between;color:white;font-size:9px;letter-spacing:.2em} .hero-content{position:absolute;left:7vw;right:7vw;bottom:7vw;color:white} .hero-number{font-size:9px;letter-spacing:.25em;margin-bottom:25px} .hero-title{font:normal clamp(52px,8vw,110px)/.88 Georgia,serif;max-width:1000px;margin:0 0 30px} .hero-description{font:19px/1.5 Georgia,serif;max-width:580px} .hero-link{display:inline-block;margin-top:35px;padding-bottom:6px;border-bottom:1px solid white;color:white;text-decoration:none;font-size:9px;letter-spacing:.18em} .intro{padding:120px 8vw 90px} .intro-number{font-size:9px;letter-spacing:.25em;margin-bottom:35px} .intro-title{font:normal clamp(55px,8vw,105px)/.88 Georgia,serif;margin:0} .intro-text{font:20px/1.65 Georgia,serif;max-width:650px;margin-top:45px;color:#5b564f} .editorial-grid{display:grid;grid-template-columns:1.45fr .8fr;gap:50px;padding:30px 7vw 120px} .feature{cursor:pointer} .feature-image{width:100%;height:620px;object-fit:cover;display:block;background:#d4cec4} .feature-meta,.small-meta{font-size:9px;letter-spacing:.2em;color:#77716a;margin-top:18px} .feature-title{font:normal 48px/1 Georgia,serif;margin:12px 0} .feature-description,.small-description{font:17px/1.5 Georgia,serif;color:#5e5952} .side-column{display:flex;flex-direction:column;gap:65px} .small-card{cursor:pointer} .small-image{width:100%;height:280px;object-fit:cover;display:block;background:#d4cec4} .small-title{font:normal 30px/1.05 Georgia,serif;margin:12px 0} .section-page,.article-page{display:none} .section-header{padding:90px 8vw 65px;border-bottom:1px solid #d5cec4} .back{border:0;background:none;padding:0;font-size:9px;letter-spacing:.18em;cursor:pointer;margin-bottom:50px} .section-label,.article-category{font-size:9px;letter-spacing:.25em;color:#777} .section-title,.article-title{font:normal clamp(55px,8vw,105px)/.9 Georgia,serif;margin:25px 0} .section-description,.article-lead{max-width:700px;font:19px/1.6 Georgia,serif;color:#5d5851} .article-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:60px 35px;padding:70px 7vw 120px} .article-card{cursor:pointer} .article-card-image{width:100%;height:480px;object-fit:cover;display:block;background:#d4cec4} .article-card-title{font:normal 38px/1 Georgia,serif;margin:13px 0} .article-card-description{font:16px/1.5 Georgia,serif;color:#625d56} .article-header{padding:90px 8vw 55px} .article-main-image{width:86%;max-height:760px;object-fit:cover;display:block;margin:20px auto 80px} .article-body{max-width:760px;margin:0 auto 130px;padding:0 25px;font:20px/1.85 Georgia,serif} .empty{grid-column:1/-1;text-align:center;padding:100px 20px;font:22px Georgia,serif;color:#777} .editor-open{position:fixed;right:20px;bottom:20px;z-index:100;border:1px solid #171614;background:#171614;color:white;padding:14px 20px;font-size:9px;letter-spacing:.15em;cursor:pointer} .editor{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.65);overflow:auto;padding:20px} .editor.show{display:block} .editor-box{max-width:850px;margin:30px auto;background:#f3efe8;padding:40px} .editor-close{float:right;border:0;background:none;font-size:28px;cursor:pointer} .editor-box h2{font:normal 38px Georgia,serif} .editor-tabs{display:flex;gap:25px;border-bottom:1px solid #ccc;padding-bottom:15px;margin-bottom:30px;overflow-x:auto} .editor-tabs button{border:0;background:none;font-size:10px;letter-spacing:.15em;cursor:pointer;white-space:nowrap} .editor-tabs button.active{border-bottom:1px solid;padding-bottom:5px} .editor-panel{display:none} .editor-panel.active{display:block} .field{margin:22px 0} .field label{display:block;font-size:9px;letter-spacing:.18em;margin-bottom:8px} .field input,.field textarea,.field select{width:100%;border:1px solid #c8c2b8;background:white;padding:13px;font-size:15px} .field textarea{min-height:160px;resize:vertical} .field textarea.large{min-height:300px} .preview{display:none;max-width:100%;max-height:300px;margin-top:12px;object-fit:cover} .save,.new-button{border:1px solid #171614;background:#171614;color:white;padding:14px 22px;font-size:9px;letter-spacing:.15em;cursor:pointer} .new-button{background:transparent;color:#171614;margin-left:10px} .list{margin-top:45px;border-top:1px solid #ccc} .list-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 0;border-bottom:1px solid #ddd} .list-info{font:18px Georgia,serif} .list-info small{display:block;font:8px Arial,sans-serif;letter-spacing:.15em;color:#888;margin-top:5px} .list-buttons{display:flex;gap:8px} .list-buttons button{border:1px solid #aaa;background:transparent;padding:8px 10px;font-size:8px;cursor:pointer} footer{border-top:1px solid #cfc8be;padding:40px 7vw;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.18em} footer a{color:#171614;text-decoration:none}
-@media(max-width:800px){
-.brand{font-size:21px}
-.navigation{justify-content:flex-start}
-.hero{min-height:75vh}
-.hero-top{left:20px;right:20px;top:25px}
-.hero-content{left:25px;right:25px;bottom:45px}
-.hero-title{font-size:55px}
-.intro{padding:80px 25px}
-.editorial-grid{grid-template-columns:1fr;padding:20px 25px 80px}
-.feature-image{height:450px}
-.article-grid{grid-template-columns:1fr;padding:50px 25px 80px}
-.article-card-image{height:400px}
-.article-header{padding:70px 25px 50px}
-.article-main-image{width:100%;margin-bottom:60px}
-.editor-box{padding:25px 20px;margin:10px auto}
-.list-row{flex-direction:column;align-items:flex-start}
-footer{flex-direction:column;gap:15px}
+!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>INNER SILENCE — Изнутри тишины</title>
+
+<style>
+
+*{
+box-sizing:border-box;
 }
-</style>
-</head> <body> <header class="header"> <div class="brand">INNER SILENCE</div> <div class="subtitle">ИЗНУТРИ ТИШИНЫ · DIGITAL MAGAZINE</div> <nav class="navigation">
-<button class="active" data-section="Главная">ГЛАВНАЯ</button>
-<button data-section="Женщина">ЖЕНЩИНА</button>
-<button data-section="Мужчина">МУЖЧИНА</button>
-<button data-section="Стиль">СТИЛЬ</button>
-<button data-section="Красота">КРАСОТА</button>
-<button data-section="Дом">ДОМ</button>
-<button data-section="Культура">КУЛЬТУРА</button>
-<button data-section="Деньги">ДЕНЬГИ</button>
-<a href="https://vk.ru/it.noir" target="_blank" rel="noopener">ВК</a>
-<button data-section="Эссе">ЭССЕ</button>
-<button data-section="Бестиарии">БЕСТИАРИИ</button>
-<button data-section="Книги">КНИГИ</button>
-<button data-section="Кулинария без проблем">КУЛИНАРИЯ БЕЗ ПРОБЛЕМ</button>
-</nav> </header> <main> <section id="home"> <div class="hero"> <div class="hero-image" id="heroImage"></div> <div class="hero-overlay"></div> <div class="hero-top"> <span>INNER SILENCE</span> <span id="heroIssue">№ 01 · АВГУСТ 2026</span> </div> <div class="hero-content"> <div class="hero-number">ИЗНУТРИ ТИШИНЫ</div> <h1 class="hero-title" id="heroTitle">Жить так, чтобы чувствовать себя живой.</h1> <div class="hero-description" id="heroDescription"> Журнал о женщине, мужчине, стиле, качестве жизни, культуре и том, что происходит внутри нас. </div>
-<a href="#editorial" class="hero-link">ВОЙТИ В ЖУРНАЛ</a>
-</div> </div> <section class="intro" id="editorial"> <div class="intro-number">01 / INNER SILENCE</div> <h2 class="intro-title">Изнутри<br>тишины</h2> <div class="intro-text" id="introText"> Пространство для историй, эссе, образов, бестиариев, книг, стиля, отношений, дома, культуры и денег. </div> </section> <section class="editorial-grid"> <div id="featureArticle"></div> <div class="side-column" id="sideArticles"></div> </section> </section> <section class="section-page" id="sectionPage"> <div class="section-header"> <button class="back" onclick="showHome()">← ГЛАВНАЯ</button> <div class="section-label" id="sectionLabel"></div> <h1 class="section-title" id="sectionTitle"></h1> <div class="section-description" id="sectionDescription"></div> </div> <div class="article-grid" id="sectionArticles"></div> </section> <section class="article-page" id="articlePage"> <div class="article-header"> <button class="back" onclick="goBack()">← НАЗАД</button> <div class="article-category" id="viewCategory"></div> <h1 class="article-title" id="viewTitle"></h1> <div class="article-lead" id="viewLead"></div> </div> <img id="viewPhoto" class="article-main-image"> <div class="article-body" id="viewText"></div> </section> </main> <footer> <span>INNER SILENCE</span> <a href="https://vk.ru/it.noir" target="_blank" rel="noopener" style="color:#171614;text-decoration:none">ВКОНТАКТЕ</a> </footer>
-</div> </div> <section class="intro" id="editorial"> <div class="intro-number">01 / INNER SILENCE</div> <h2 class="intro-title">Изнутри<br>тишины</h2> <div class="intro-text" id="introText"> Пространство для историй, эссе, образов, бестиариев, книг, стиля, отношений, дома, культуры и денег. </div> </section> <section class="editorial-grid"> <div id="featureArticle"></div> <div class="side-column" id="sideArticles"></div> </section> </section> <section class="section-page" id="sectionPage"> <div class="section-header"> <button class="back" onclick="showHome()">← ГЛАВНАЯ</button> <div class="section-label" id="sectionLabel"></div> <h1 class="section-title" id="sectionTitle"></h1> <div class="section-description" id="sectionDescription"></div> </div> <div class="article-grid" id="sectionArticles"></div> </section> <section class="article-page" id="articlePage"> <div class="article-header">
-<button class="back" onclick="goBack()">← НАЗАД</button>
-<div class="article-category" id="viewCategory"></div> <h1 class="article-title" id="viewTitle"></h1> <div class="article-lead" id="viewLead"></div> </div> <img id="viewPhoto" class="article-main-image"> <div class="article-body" id="viewText"></div> </section> </main> <footer> <span>INNER SILENCE</span> <a href="https://vk.ru/it.noir" target="_blank" rel="noopener">ВКОНТАКТЕ</a> </footer>
-<button class="editor-open" onclick="openEditor()">РЕДАКТОР</button>
-<div class="editor" id="editor"> <div class="editor-box">
-<button class="editor-close" onclick="closeEditor()">×</button>
-<h2>Редактор INNER SILENCE</h2> <div class="editor-tabs"> <button class="active" data-tab="main">ГЛАВНАЯ</button> <button data-tab="sections">РАЗДЕЛЫ</button> <button data-tab="articles">СТАТЬИ</button> </div> <div class="editor-panel active" id="panel-main"> <div class="field"> <label>ФОТО ОБЛОЖКИ</label> <input type="file" id="coverInput" accept="image/*"> <img id="coverPreview" class="preview"> </div> <div class="field"> <label>НОМЕР / ДАТА</label> <input id="issueInput"> </div> <div class="field"> <label>ЗАГОЛОВОК ГЛАВНОЙ</label> <textarea id="heroTitleInput"></textarea> </div> <div class="field"> <label>ТЕКСТ ПОД ЗАГОЛОВКОМ</label> <textarea id="heroDescriptionInput"></textarea> </div> <div class="field"> <label>ВСТУПИТЕЛЬНЫЙ ТЕКСТ</label> <textarea id="introTextInput"></textarea> </div>
-<h2>Редактор INNER SILENCE</h2> <div class="editor-tabs">
-<button class="active" data-tab="main">ГЛАВНАЯ</button>
-<button data-tab="sections">РАЗДЕЛЫ</button>
-<button data-tab="articles">СТАТЬИ</button>
-</div> <div class="editor-panel active" id="panel-main"> <div class="field"> <label>ФОТО ОБЛОЖКИ</label> <input type="file" id="coverInput" accept="image/*"> <img id="coverPreview" class="preview"> </div> <div class="field"> <label>НОМЕР / ДАТА</label> <input id="issueInput"> </div> <div class="field"> <label>ЗАГОЛОВОК ГЛАВНОЙ</label> <textarea id="heroTitleInput"></textarea> </div> <div class="field"> <label>ТЕКСТ ПОД ЗАГОЛОВКОМ</label> <textarea id="heroDescriptionInput"></textarea> </div> <div class="field"> <label>ВСТУПИТЕЛЬНЫЙ ТЕКСТ</label> <textarea id="introTextInput"></textarea> </div>
-<button class="save" onclick="saveMain()">СОХРАНИТЬ ГЛАВНУЮ</button>
-</div> <div class="editor-panel" id="panel-sections"> <div class="field"> <label>РАЗДЕЛ</label> <select id="sectionEditSelect"></select> </div> <div class="field"> <label>НАЗВАНИЕ</label> <input id="sectionNameInput"> </div> <div class="field"> <label>ОПИСАНИЕ</label> <textarea id="sectionDescriptionInput"></textarea> </div>
-<button class="save" onclick="saveSection()">СОХРАНИТЬ РАЗДЕЛ</button>
-</div> <div class="editor-panel" id="panel-articles"> <div class="field"> <label>РАЗДЕЛ</label> <select id="articleSectionInput"></select> </div> <div class="field"> <label>НАЗВАНИЕ СТАТЬИ</label> <input id="articleTitleInput"> </div> <div class="field"> <label>КОРОТКОЕ ОПИСАНИЕ</label> <textarea id="articleDescriptionInput"></textarea> </div> <div class="field"> <label>ФОТО СТАТЬИ</label> <input type="file" id="articlePhotoInput" accept="image/*"> <img id="articlePhotoPreview" class="preview"> </div> <div class="field"> <label>ПОЛНЫЙ ТЕКСТ СТАТЬИ</label> <textarea id="articleTextInput" class="large"></textarea> </div>
-<button class="save" onclick="saveArticle()">СОХРАНИТЬ СТАТЬЮ</button>
-<button class="new-button" onclick="clearArticleForm()">НОВАЯ СТАТЬЯ</button>
-<div class="list" id="articleList"></div> </div> </div> </div> <script> const sections=[ "Женщина", "Мужчина", "Стиль", "Красота", "Дом", "Культура", "Деньги", "Эссе", "Бестиарии", "Книги", "Кулинария без проблем" ]; const defaults={ "Женщина":"Истории, мысли и материалы о жизни женщины.", "Мужчина":"Отношения, характер и жизнь мужчины.", "Стиль":"Одежда, детали и личная эстетика.", "Красота":"Уход, красота, тело и ритуалы.", "Дом":"Пространство, атмосфера и жизнь дома.", "Культура":"Искусство, кино, книги и культурные явления.", "Деньги":"Работа, доход, решения и качество жизни.", "Эссе":"Авторские тексты, наблюдения и мысли.", "Бестиарии":"Существа, характеры, образы и истории.", "Книги":"Книги, чтение, рекомендации и книжные открытия.", "Кулинария без проблем":"Простые рецепты, красивые блюда и удовольствие от еды без лишних сложностей." }; let mainData=JSON.parse(localStorage.getItem("innerSilenceMain")||"null"); let sectionData=JSON.parse(localStorage.getItem("innerSilenceSections")||"{}"); let articles=JSON.parse(localStorage.getItem("innerSilenceArticles")||"[]"); let editingArticleId=null; let coverPhoto=""; let articlePhoto=""; let lastSection="Главная"; if(!mainData){ mainData={ issue:"№ 01 · АВГУСТ 2026", title:"Жить так,\nчтобы чувствовать\nсебя живой.", description:"Журнал о женщине, мужчине, стиле, качестве жизни, культуре и том, что происходит внутри нас.", intro:"Пространство для историй, эссе, образов, бестиариев, книг, стиля, отношений, дома, культуры и денег.", cover:"" }; } sections.forEach(function(s){ if(!sectionData[s]){ sectionData[s]={ name:s, description:defaults[s] }; } }); function saveAll(){ localStorage.setItem("innerSilenceMain",JSON.stringify(mainData)); localStorage.setItem("innerSilenceSections",JSON.stringify(sectionData)); localStorage.setItem("innerSilenceArticles",JSON.stringify(articles)); } function placeholder(){ return "data:image/svg+xml;charset=UTF-8,"+ encodeURIComponent( '<svg width="1200" height="800">'+ '<rect width="100%" height="100%" fill="#d4cec4"/>'+ '<text x="50%" y="50%" text-anchor="middle" fill="#777" font-size="30" font-family="Georgia">INNER SILENCE</text>'+ '</svg>' ); } function escapeHTML(text){ return String(text) .replace(/&/g,"&amp;") .replace(/</g,"&lt;") .replace(/>/g,"&gt;") .replace(/"/g,"&quot;") .replace(/'/g,"&#039;"); } function applyMain(){ document.getElementById("heroIssue").textContent=mainData.issue; document.getElementById("heroTitle").innerHTML= escapeHTML(mainData.title).replace(/\n/g,"<br>"); document.getElementById("heroDescription").textContent= mainData.description; document.getElementById("introText").textContent= mainData.intro; const hero=document.getElementById("heroImage"); hero.style.backgroundImage=mainData.cover ?"url('"+mainData.cover+"')" :"linear-gradient(135deg,#aaa39a,#5e5952)"; } function openArticle(article){ lastSection=article.section; document.getElementById("home").style.display="none"; document.getElementById("sectionPage").style.display="none"; document.getElementById("articlePage").style.display="block"; document.getElementById("viewCategory").textContent= article.section.toUpperCase(); document.getElementById("viewTitle").textContent= article.title; document.getElementById("viewLead").textContent= article.description; document.getElementById("viewText").innerHTML= escapeHTML(article.text).replace(/\n/g,"<br><br>"); const photo=document.getElementById("viewPhoto"); if(article.photo){ photo.src=article.photo; }else{ photo.src=placeholder(); } photo.style.display="block"; window.scrollTo(0,0); } function articleCard(article){ const card=document.createElement("article"); card.className="article-card"; const img=document.createElement("img"); img.className="article-card-image"; img.src=article.photo||placeholder(); const meta=document.createElement("div"); meta.className="small-meta"; meta.textContent=article.section.toUpperCase(); const title=document.createElement("h2"); title.className="article-card-title"; title.textContent=article.title; const desc=document.createElement("div"); desc.className="article-card-description"; desc.textContent=article.description; card.append(img,meta,title,desc); card.onclick=function(){ openArticle(article); }; return card; } function renderHome(){ const feature=document.getElementById("featureArticle"); const side=document.getElementById("sideArticles"); feature.innerHTML=""; side.innerHTML=""; const list=articles.slice().reverse(); if(!list.length){ feature.innerHTML= '<div class="empty">Пока нет опубликованных материалов.</div>'; return; } const first=list[0]; const box=document.createElement("div"); box.className="feature"; const img=document.createElement("img"); img.className="feature-image"; img.src=first.photo||placeholder(); const meta=document.createElement("div"); meta.className="feature-meta"; meta.textContent=first.section.toUpperCase(); const title=document.createElement("h2"); title.className="feature-title"; title.textContent=first.title; const desc=document.createElement("div"); desc.className="feature-description"; desc.textContent=first.description; box.append(img,meta,title,desc); box.onclick=function(){ openArticle(first); }; feature.appendChild(box); list.slice(1,4).forEach(function(article){ const card=document.createElement("div"); card.className="small-card"; const img=document.createElement("img"); img.className="small-image"; img.src=article.photo||placeholder(); const meta=document.createElement("div"); meta.className="small-meta"; meta.textContent=article.section.toUpperCase(); const title=document.createElement("h3"); title.className="small-title"; title.textContent=article.title; const desc=document.createElement("div"); desc.className="small-description"; desc.textContent=article.description; card.append(img,meta,title,desc); card.onclick=function(){ openArticle(article); }; side.appendChild(card); }); } function showSection(section){ lastSection=section; document.getElementById("home").style.display="none"; document.getElementById("articlePage").style.display="none"; document.getElementById("sectionPage").style.display="block"; document.getElementById("sectionLabel").textContent= section.toUpperCase(); document.getElementById("sectionTitle").textContent= sectionData[section].name; document.getElementById("sectionDescription").textContent= sectionData[section].description; const box=document.getElementById("sectionArticles"); box.innerHTML=""; const list=articles .filter(function(a){ return a.section===section; }) .reverse(); if(!list.length){ box.innerHTML= '<div class="empty">В этом разделе пока нет материалов.</div>'; }else{ list.forEach(function(article){ box.appendChild(articleCard(article)); }); } updateNavigation(section); window.scrollTo(0,0); } function showHome(){ document.getElementById("sectionPage").style.display="none"; document.getElementById("articlePage").style.display="none"; document.getElementById("home").style.display="block"; updateNavigation("Главная"); window.scrollTo(0,0); } function goBack(){ if(lastSection==="Главная"){ showHome(); }else{ showSection(lastSection); } } function updateNavigation(section){ document.querySelectorAll(".navigation button").forEach(function(button){ button.classList.toggle( "active", button.dataset.section===section ); }); } document.querySelectorAll(".navigation button").forEach(function(button){ button.addEventListener("click",function(){ if(this.dataset.section==="Главная"){ showHome(); }else{ showSection(this.dataset.section); } }); }); function openEditor(){ document.getElementById("editor").classList.add("show"); loadMainEditor(); loadSectionsEditor(); loadArticleSections(); renderArticleList(); } function closeEditor(){ document.getElementById("editor").classList.remove("show"); } document.querySelectorAll(".editor-tabs button").forEach(function(button){ button.addEventListener("click",function(){ document.querySelectorAll(".editor-tabs button") .forEach(function(b){ b.classList.remove("active"); }); document.querySelectorAll(".editor-panel") .forEach(function(p){ p.classList.remove("active"); }); button.classList.add("active"); document.getElementById( "panel-"+button.dataset.tab ).classList.add("active"); }); }); function loadMainEditor(){ document.getElementById("issueInput").value=mainData.issue; document.getElementById("heroTitleInput").value=mainData.title; document.getElementById("heroDescriptionInput").value=mainData.description; document.getElementById("introTextInput").value=mainData.intro; coverPhoto=mainData.cover||""; const preview=document.getElementById("coverPreview"); if(coverPhoto){ preview.src=coverPhoto; preview.style.display="block"; }else{ preview.style.display="none"; } } document.getElementById("coverInput") .addEventListener("change",function(){ const file=this.files[0]; if(!file)return; const reader=new FileReader(); reader.onload=function(e){ coverPhoto=e.target.result; const preview=document.getElementById("coverPreview"); preview.src=coverPhoto; preview.style.display="block"; }; reader.readAsDataURL(file); }); function saveMain(){ mainData.issue= document.getElementById("issueInput").value.trim(); mainData.title= document.getElementById("heroTitleInput").value.trim(); mainData.description= document.getElementById("heroDescriptionInput").value.trim(); mainData.intro= document.getElementById("introTextInput").value.trim(); if(coverPhoto){ mainData.cover=coverPhoto; } saveAll(); applyMain(); alert("Главная страница сохранена."); } function loadSectionsEditor(){ const select=document.getElementById("sectionEditSelect"); select.innerHTML=""; sections.forEach(function(section){ const option=document.createElement("option"); option.value=section; option.textContent=section; select.appendChild(option); }); loadSelectedSection(); } document.getElementById("sectionEditSelect") .addEventListener("change",loadSelectedSection); function loadSelectedSection(){ const section= document.getElementById("sectionEditSelect").value; document.getElementById("sectionNameInput").value= sectionData[section].name; document.getElementById("sectionDescriptionInput").value= sectionData[section].description; } function saveSection(){ const section= document.getElementById("sectionEditSelect").value; sectionData[section].name= document.getElementById("sectionNameInput").value.trim()||section; sectionData[section].description= document.getElementById("sectionDescriptionInput").value.trim(); saveAll(); alert("Раздел сохранён."); } function loadArticleSections(){ const select= document.getElementById("articleSectionInput"); select.innerHTML=""; sections.forEach(function(section){ const option=document.createElement("option"); option.value=section; option.textContent=section; select.appendChild(option); }); } document.getElementById("articlePhotoInput") .addEventListener("change",function(){ const file=this.files[0]; if(!file)return; const reader=new FileReader(); reader.onload=function(e){ articlePhoto=e.target.result; const preview= document.getElementById("articlePhotoPreview"); preview.src=articlePhoto; preview.style.display="block"; }; reader.readAsDataURL(file); }); function saveArticle(){ const section= document.getElementById("articleSectionInput").value; const title= document.getElementById("articleTitleInput").value.trim(); const description= document.getElementById("articleDescriptionInput").value.trim(); const text= document.getElementById("articleTextInput").value.trim(); if(!title){ alert("Напиши название статьи."); return; } if(!text){ alert("Напиши текст статьи."); return; } if(editingArticleId){ const article=articles.find(function(a){ return a.id===editingArticleId; }); if(article){ article.section=section; article.title=title; article.description=description; article.text=text; if(articlePhoto){ article.photo=articlePhoto; } } }else{ articles.push({ id:Date.now().toString(), section:section, title:title, description:description, text:text, photo:articlePhoto||"" }); } saveAll(); renderHome(); renderArticleList(); clearArticleForm(); alert("Статья сохранена."); } function renderArticleList(){ const list=document.getElementById("articleList"); list.innerHTML=""; if(!articles.length){ list.innerHTML= '<div class="empty">Статей пока нет.</div>'; return; } articles.slice().reverse().forEach(function(article){ const row=document.createElement("div"); row.className="list-row"; const info=document.createElement("div"); info.className="list-info"; info.textContent=article.title; const small=document.createElement("small"); small.textContent=article.section.toUpperCase(); info.appendChild(small); const buttons=document.createElement("div"); buttons.className="list-buttons"; const edit=document.createElement("button"); edit.textContent="ИЗМЕНИТЬ"; edit.onclick=function(){ editArticle(article.id); }; const del=document.createElement("button"); del.textContent="УДАЛИТЬ"; del.onclick=function(){ deleteArticle(article.id); }; buttons.append(edit,del); row.append(info,buttons); list.appendChild(row); }); } function editArticle(id){ const article=articles.find(function(a){ return a.id===id; }); if(!article)return; editingArticleId=id; document.getElementById("articleSectionInput").value= article.section; document.getElementById("articleTitleInput").value= article.title; document.getElementById("articleDescriptionInput").value= article.description; document.getElementById("articleTextInput").value= article.text; articlePhoto=article.photo||""; const preview= document.getElementById("articlePhotoPreview"); if(articlePhoto){ preview.src=articlePhoto; preview.style.display="block"; }else{ preview.style.display="none"; } document.querySelectorAll(".editor-tabs button") .forEach(function(b){ b.classList.remove("active"); }); document.querySelector('[data-tab="articles"]') .classList.add("active"); document.querySelectorAll(".editor-panel") .forEach(function(p){ p.classList.remove("active"); }); document.getElementById("panel-articles") .classList.add("active"); } function deleteArticle(id){ const article=articles.find(function(a){ return a.id===id; }); if(!article)return; if(!confirm("Удалить статью «"+article.title+"»?")){ return; } articles=articles.filter(function(a){ return a.id!==id; }); saveAll(); renderHome(); renderArticleList(); } function clearArticleForm(){ editingArticleId=null; articlePhoto=""; document.getElementById("articleTitleInput").value=""; document.getElementById("articleDescriptionInput").value=""; document.getElementById("articleTextInput").value=""; document.getElementById("articlePhotoInput").value=""; document.getElementById("articlePhotoPreview") .style.display="none"; } applyMain(); renderHome(); </script> </body> </html>
-<div class="list" id="articleList"></div> </div> </div> </div> <script> const sections=[ "Женщина", "Мужчина", "Стиль", "Красота", "Дом", "Культура", "Деньги", "Эссе", "Бестиарии", "Книги", "Кулинария без проблем" ]; const defaults={ "Женщина":"Истории, мысли и материалы о жизни женщины.", "Мужчина":"Отношения, характер и жизнь мужчины.", "Стиль":"Одежда, детали и личная эстетика.", "Красота":"Уход, красота, тело и ритуалы.", "Дом":"Пространство, атмосфера и жизнь дома.", "Культура":"Искусство, кино, книги и культурные явления.", "Деньги":"Работа, доход, решения и качество жизни.", "Эссе":"Авторские тексты, наблюдения и мысли.", "Бестиарии":"Существа, характеры, образы и истории.", "Книги":"Книги, чтение, рекомендации и книжные открытия.", "Кулинария без проблем":"Простые рецепты, красивые блюда и удовольствие от еды без лишних сложностей." }; let mainData=JSON.parse(localStorage.getItem("innerSilenceMain")||"null"); let sectionData=JSON.parse(localStorage.getItem("innerSilenceSections")||"{}"); let articles=JSON.parse(localStorage.getItem("innerSilenceArticles")||"[]"); let editingArticleId=null; let coverPhoto=""; let articlePhoto=""; let lastSection="Главная"; if(!mainData){ mainData={ issue:"№ 01 · АВГУСТ 2026", title:"Жить так,\nчтобы чувствовать\nсебя живой.", description:"Журнал о женщине, мужчине, стиле, качестве жизни, культуре и том, что происходит внутри нас.", intro:"Пространство для историй, эссе, образов, бестиариев, книг, стиля, отношений, дома, культуры и денег.", cover:"" }; } sections.forEach(function(s){ if(!sectionData[s]){ sectionData[s]={ name:s, description:defaults[s] }; } }); function saveAll(){ localStorage.setItem("innerSilenceMain",JSON.stringify(mainData)); localStorage.setItem("innerSilenceSections",JSON.stringify(sectionData)); localStorage.setItem("innerSilenceArticles",JSON.stringify(articles)); } function placeholder(){ return "data:image/svg+xml;charset=UTF-8,"+ encodeURIComponent( '<svg width="1200" height="800">'+ '<rect width="100%" height="100%" fill="#d4cec4"/>'+ '<text x="50%" y="50%" text-anchor="middle" fill="#777" font-size="30" font-family="Georgia">INNER SILENCE</text>'+ '</svg>' ); } function escapeHTML(text){ return String(text) .replace(/&/g,"&amp;") .replace(/</g,"&lt;") .replace(/>/g,"&gt;") .replace(/"/g,"&quot;") .replace(/'/g,"&#039;"); } function applyMain(){ document.getElementById("heroIssue").textContent=mainData.issue; document.getElementById("heroTitle").innerHTML= escapeHTML(mainData.title).replace(/\n/g,"<br>"); document.getElementById("heroDescription").textContent= mainData.description; document.getElementById("introText").textContent= mainData.intro; const hero=document.getElementById("heroImage"); hero.style.backgroundImage=mainData.cover ?"url('"+mainData.cover+"')" :"linear-gradient(135deg,#aaa39a,#5e5952)"; } function openArticle(article){ lastSection=article.section; document.getElementById("home").style.display="none"; document.getElementById("sectionPage").style.display="none"; document.getElementById("articlePage").style.display="block"; document.getElementById("viewCategory").textContent= article.section.toUpperCase(); document.getElementById("viewTitle").textContent= article.title; document.getElementById("viewLead").textContent= article.description; document.getElementById("viewText").innerHTML= escapeHTML(article.text).replace(/\n/g,"<br><br>"); const photo=document.getElementById("viewPhoto"); photo.src=article.photo||placeholder(); photo.style.display="block"; window.scrollTo(0,0); } function articleCard(article){ const card=document.createElement("article"); card.className="article-card"; const img=document.createElement("img"); img.className="article-card-image"; img.src=article.photo||placeholder(); const meta=document.createElement("div"); meta.className="small-meta"; meta.textContent=article.section.toUpperCase(); const title=document.createElement("h2"); title.className="article-card-title"; title.textContent=article.title; const desc=document.createElement("div"); desc.className="article-card-description"; desc.textContent=article.description; card.append(img,meta,title,desc); card.onclick=function(){ openArticle(article); }; return card; } function renderHome(){ const feature=document.getElementById("featureArticle"); const side=document.getElementById("sideArticles"); feature.innerHTML=""; side.innerHTML=""; const list=articles.slice().reverse(); if(!list.length){ feature.innerHTML='<div class="empty">Пока нет опубликованных материалов.</div>'; return; } const first=list[0]; const box=document.createElement("div"); box.className="feature"; const img=document.createElement("img"); img.className="feature-image"; img.src=first.photo||placeholder(); const meta=document.createElement("div"); meta.className="feature-meta"; meta.textContent=first.section.toUpperCase(); const title=document.createElement("h2"); title.className="feature-title"; title.textContent=first.title; const desc=document.createElement("div"); desc.className="feature-description"; desc.textContent=first.description; box.append(img,meta,title,desc); box.onclick=function(){ openArticle(first); }; feature.appendChild(box); list.slice(1,4).forEach(function(article){ const card=document.createElement("div"); card.className="small-card"; const img=document.createElement("img"); img.className="small-image"; img.src=article.photo||placeholder(); const meta=document.createElement("div"); meta.className="small-meta"; meta.textContent=article.section.toUpperCase(); const title=document.createElement("h3"); title.className="small-title"; title.textContent=article.title; const desc=document.createElement("div"); desc.className="small-description"; desc.textContent=article.description; card.append(img,meta,title,desc); card.onclick=function(){ openArticle(article); }; side.appendChild(card); }); } function showSection(section){ lastSection=section; document.getElementById("home").style.display="none"; document.getElementById("articlePage").style.display="none"; document.getElementById("sectionPage").style.display="block"; document.getElementById("sectionLabel").textContent= section.toUpperCase(); document.getElementById("sectionTitle").textContent= sectionData[section].name; document.getElementById("sectionDescription").textContent= sectionData[section].description; const box=document.getElementById("sectionArticles"); box.innerHTML=""; const list=articles .filter(function(a){ return a.section===section; }) .reverse(); if(!list.length){ box.innerHTML= '<div class="empty">В этом разделе пока нет материалов.</div>'; }else{ list.forEach(function(article){ box.appendChild(articleCard(article)); }); } updateNavigation(section); window.scrollTo(0,0); } function showHome(){ document.getElementById("sectionPage").style.display="none"; document.getElementById("articlePage").style.display="none"; document.getElementById("home").style.display="block"; updateNavigation("Главная"); window.scrollTo(0,0); } function goBack(){ if(lastSection==="Главная"){ showHome(); }else{ showSection(lastSection); } } function updateNavigation(section){ document.querySelectorAll(".navigation button") .forEach(function(button){ button.classList.toggle( "active", button.dataset.section===section ); }); } document.querySelectorAll(".navigation button") .forEach(function(button){ button.addEventListener("click",function(){ if(this.dataset.section==="Главная"){ showHome(); }else{ showSection(this.dataset.section); } }); }); function openEditor(){ document.getElementById("editor").classList.add("show"); loadMainEditor(); loadSectionsEditor(); loadArticleSections(); renderArticleList(); } function closeEditor(){ document.getElementById("editor").classList.remove("show"); } document.querySelectorAll(".editor-tabs button") .forEach(function(button){ button.addEventListener("click",function(){ document.querySelectorAll(".editor-tabs button") .forEach(function(b){ b.classList.remove("active"); }); document.querySelectorAll(".editor-panel") .forEach(function(p){ p.classList.remove("active"); }); button.classList.add("active"); document.getElementById( "panel-"+button.dataset.tab ).classList.add("active"); }); }); function loadMainEditor(){ document.getElementById("issueInput").value= mainData.issue; document.getElementById("heroTitleInput").value= mainData.title; document.getElementById("heroDescriptionInput").value= mainData.description; document.getElementById("introTextInput").value= mainData.intro; coverPhoto=mainData.cover||""; const preview=document.getElementById("coverPreview"); if(coverPhoto){ preview.src=coverPhoto; preview.style.display="block"; }else{ preview.style.display="none"; } } document.getElementById("coverInput") .addEventListener("change",function(){ const file=this.files[0]; if(!file)return; const reader=new FileReader(); reader.onload=function(e){ coverPhoto=e.target.result; const preview=document.getElementById("coverPreview"); preview.src=coverPhoto; preview.style.display="block"; }; reader.readAsDataURL(file); }); function saveMain(){ mainData.issue= document.getElementById("issueInput").value.trim(); mainData.title= document.getElementById("heroTitleInput").value.trim(); mainData.description= document.getElementById("heroDescriptionInput").value.trim(); mainData.intro= document.getElementById("introTextInput").value.trim(); if(coverPhoto){ mainData.cover=coverPhoto; } saveAll(); applyMain(); alert("Главная страница сохранена."); } function loadSectionsEditor(){ const select=document.getElementById("sectionEditSelect"); select.innerHTML=""; sections.forEach(function(section){ const option=document.createElement("option"); option.value=section; option.textContent=section; select.appendChild(option); }); loadSelectedSection(); } document.getElementById("sectionEditSelect") .addEventListener("change",loadSelectedSection); function loadSelectedSection(){ const section= document.getElementById("sectionEditSelect").value; document.getElementById("sectionNameInput").value= sectionData[section].name; document.getElementById("sectionDescriptionInput").value= sectionData[section].description; } function saveSection(){ const section= document.getElementById("sectionEditSelect").value; sectionData[section].name= document.getElementById("sectionNameInput") .value.trim()||section; sectionData[section].description= document.getElementById("sectionDescriptionInput") .value.trim(); saveAll(); alert("Раздел сохранён."); } function loadArticleSections(){ const select= document.getElementById("articleSectionInput"); select.innerHTML=""; sections.forEach(function(section){ const option=document.createElement("option"); option.value=section; option.textContent=section; select.appendChild(option); }); } document.getElementById("articlePhotoInput") .addEventListener("change",function(){ const file=this.files[0]; if(!file)return; const reader=new FileReader(); reader.onload=function(e){ articlePhoto=e.target.result; const preview= document.getElementById("articlePhotoPreview"); preview.src=articlePhoto; preview.style.display="block"; }; reader.readAsDataURL(file); }); function saveArticle(){ const section= document.getElementById("articleSectionInput").value; const title= document.getElementById("articleTitleInput") .value.trim(); const description= document.getElementById("articleDescriptionInput") .value.trim(); const text= document.getElementById("articleTextInput") .value.trim(); if(!title){ alert("Напиши название статьи."); return; } if(!text){ alert("Напиши текст статьи."); return; } if(editingArticleId){ const article=articles.find(function(a){ return a.id===editingArticleId; }); if(article){ article.section=section; article.title=title; article.description=description; article.text=text; if(articlePhoto){ article.photo=articlePhoto; } } }else{ articles.push({ id:Date.now().toString(), section:section, title:title, description:description, text:text, photo:articlePhoto||"" }); } saveAll(); renderHome(); renderArticleList(); clearArticleForm(); alert("Статья сохранена."); } function renderArticleList(){ const list=document.getElementById("articleList"); list.innerHTML=""; if(!articles.length){ list.innerHTML= '<div class="empty">Статей пока нет.</div>'; return; } articles.slice().reverse().forEach(function(article){ const row=document.createElement("div"); row.className="list-row"; const info=document.createElement("div"); info.className="list-info"; info.textContent=article.title; const small=document.createElement("small"); small.textContent=article.section.toUpperCase(); info.appendChild(small); const buttons=document.createElement("div"); buttons.className="list-buttons"; const edit=document.createElement("button"); edit.textContent="ИЗМЕНИТЬ"; edit.onclick=function(){ editArticle(article.id); }; const del=document.createElement("button"); del.textContent="УДАЛИТЬ"; del.onclick=function(){ deleteArticle(article.id); }; buttons.append(edit,del); row.append(info,buttons); list.appendChild(row); }); } function editArticle(id){ const article=articles.find(function(a){ return a.id===id; }); if(!article)return; editingArticleId=id; document.getElementById("articleSectionInput").value= article.section; document.getElementById("articleTitleInput").value= article.title; document.getElementById("articleDescriptionInput").value= article.description; document.getElementById("articleTextInput").value= article.text; articlePhoto=article.photo||""; const preview= document.getElementById("articlePhotoPreview"); if(articlePhoto){ preview.src=articlePhoto; preview.style.display="block"; }else{ preview.style.display="none"; } document.querySelectorAll(".editor-tabs button") .forEach(function(b){ b.classList.remove("active"); }); document.querySelector('[data-tab="articles"]') .classList.add("active"); document.querySelectorAll(".editor-panel") .forEach(function(p){ p.classList.remove("active"); }); document.getElementById("panel-articles") .classList.add("active"); } function deleteArticle(id){ const article=articles.find(function(a){ return a.id===id; }); if(!article)return; if(!confirm("Удалить статью «"+article.title+"»?")){ return; } articles=articles.filter(function(a){ return a.id!==id; }); saveAll(); renderHome(); renderArticleList(); } function clearArticleForm(){ editingArticleId=null; articlePhoto=""; document.getElementById("articleTitleInput").value=""; document.getElementById("articleDescriptionInput").value=""; document.getElementById("articleTextInput").value=""; document.getElementById("articlePhotoInput").value=""; document.getElementById("articlePhotoPreview").style.display="none"; } applyMain(); renderHome(); </script> </body> </html>
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+background:#f3efe8;
+color:#171614;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+.header{
+position:sticky;
+top:0;
+z-index:50;
+background:rgba(243,239,232,.97);
+border-bottom:1px solid #d5cec4;
+}
+
+.brand{
+text-align:center;
+padding:22px 10px 8px;
+font:27px Georgia,serif;
+letter-spacing:.22em;
+}
+
+.subtitle{
+text-align:center;
+font-size:9px;
+letter-spacing:.3em;
+margin-bottom:20px;
+color:#625d55;
+}
+
+.navigation{
+display:flex;
+justify-content:center;
+gap:22px;
+overflow-x:auto;
+padding:0 18px 17px;
+white-space:nowrap;
+}
+
+.navigation button{
+border:0;
+background:none;
+padding:0;
+color:#171614;
+font-size:9px;
+letter-spacing:.14em;
+cursor:pointer;
+}
+
+.navigation button.active{
+border-bottom:1px solid #171614;
+padding-bottom:5px;
+}
+
+.navigation a{
+color:#171614;
+text-decoration:none;
+font-size:10px;
+letter-spacing:.12em;
+}
+
+.hero{
+position:relative;
+min-height:calc(100vh - 105px);
+overflow:hidden;
+background:#918b82;
+}
+
+.hero-image{
+position:absolute;
+inset:0;
+background-position:center;
+background-size:cover;
+}
+
+.hero-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,.08),
+rgba(0,0,0,.58)
+);
+}
+
+.hero-content{
+position:absolute;
+left:7vw;
+right:7vw;
+bottom:7vw;
+color:white;
+}
+
+.hero-title{
+font:normal clamp(52px,8vw,110px)/.88 Georgia,serif;
+margin:0 0 30px;
+}
+  hero-description{
+font:19px/1.5 Georgia,serif;
+max-width:580px;
+}
+
+.hero-link{
+display:inline-block;
+margin-top:35px;
+padding-bottom:6px;
+border-bottom:1px solid white;
+color:white;
+text-decoration:none;
+font-size:9px;
+letter-spacing:.18em;
+}
+
+.intro{
+padding:120px 8vw 90px;
+}
+
+.intro-title{
+font:normal clamp(55px,8vw,105px)/.88 Georgia,serif;
+margin:0;
+}
+
+.intro-text{
+font:20px/1.65 Georgia,serif;
+max-width:650px;
+margin-top:45px;
+color:#5b564f;
+}
+
+.editorial-grid{
+display:grid;
+grid-template-columns:1.45fr .8fr;
+gap:50px;
+padding:30px 7vw 120px;
+}
+
+.feature-image{
+width:100%;
+height:620px;
+object-fit:cover;
+display:block;
+background:#d4cec4;
+}
+
+.feature-title{
+font:normal 48px/1 Georgia,serif;
+margin:12px 0;
+}
+
+.feature-description{
+font:17px/1.5 Georgia,serif;
+color:#5e5952;
+}
+
+.section-page,
+.article-page{
+display:none;
+}
+
+.article-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:60px 35px;
+padding:70px 7vw 120px;
+}
+
+.article-card-image{
+width:100%;
+height:480px;
+object-fit:cover;
+display:block;
+background:#d4cec4;
+}
+
+.article-card-title{
+font:normal 38px/1 Georgia,serif;
+margin:13px 0;
+}
+
+.article-card-description{
+font:16px/1.5 Georgia,serif;
+color:#625d56;
+}
+  .article-header{
+padding:90px 8vw 55px;
+}
+
+.article-title{
+font:normal clamp(55px,8vw,105px)/.9 Georgia,serif;
+margin:25px 0;
+}
+
+.article-lead{
+max-width:700px;
+font:19px/1.6 Georgia,serif;
+color:#5d5851;
+}
+
+.article-main-image{
+width:86%;
+max-height:760px;
+object-fit:cover;
+display:block;
+margin:20px auto 80px;
+}
+
+.article-body{
+max-width:760px;
+margin:0 auto 130px;
+padding:0 25px;
+font:20px/1.85 Georgia,serif;
+}
+
+.empty{
+grid-column:1/-1;
+text-align:center;
+padding:100px 20px;
+font:22px Georgia,serif;
+color:#777;
+}
+
+.editor-open{
+position:fixed;
+right:20px;
+bottom:20px;
+z-index:100;
+border:1px solid #171614;
+background:#171614;
+color:white;
+padding:14px 20px;
+font-size:9px;
+letter-spacing:.15em;
+cursor:pointer;
+}
+
+.editor{
+display:none;
+position:fixed;
+inset:0;
+z-index:200;
+background:rgba(0,0,0,.65);
+overflow:auto;
+padding:20px;
+}
+
+.editor.show{
+display:block;
+}
+
+.editor-box{
+max-width:850px;
+margin:30px auto;
+background:#f3efe8;
+padding:40px;
+}
+
+.editor-close{
+float:right;
+border:0;
+background:none;
+font-size:28px;
+cursor:pointer;
+}
+
+.editor-tabs{
+display:flex;
+gap:25px;
+border-bottom:1px solid #ccc;
+padding-bottom:15px;
+margin-bottom:30px;
+overflow-x:auto;
+}
+.editor-tabs button{
+border:0;
+background:none;
+font-size:10px;
+letter-spacing:.15em;
+cursor:pointer;
+white-space:nowrap;
+}
+
+.editor-tabs button.active{
+border-bottom:1px solid;
+padding-bottom:5px;
+}
+
+.editor-panel{
+display:none;
+}
+
+.editor-panel.active{
+display:block;
+}
+
+.field{
+margin:22px 0;
+}
+
+.field label{
+display:block;
+font-size:9px;
+letter-spacing:.18em;
+margin-bottom:8px;
+}
+
+.field input,
+.field textarea,
+.field select{
+width:100%;
+border:1px solid #c8c2b8;
+background:white;
+padding:13px;
+font-size:15px;
+}
+
+.field textarea{
+min-height:160px;
+resize:vertical;
+}
+
+.field textarea.large{
+min-height:300px;
+}
+
+.preview{
+display:none;
+max-width:100%;
+max-height:300px;
+margin-top:12px;
+object-fit:cover;
+}
+
+.save,
+.new-button{
+border:1px solid #171614;
+background:#171614;
+color:white;
+padding:14px 22px;
+font-size:9px;
+letter-spacing:.15em;
+cursor:pointer;
+}
+
+.new-button{
+background:transparent;
+color:#171614;
+margin-left:10px;
+}
+.list{
+margin-top:45px;
+border-top:1px solid #ccc;
+}
+
+.list-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+padding:18px 0;
+border-bottom:1px solid #ddd;
+}
+
+.list-info{
+font:18px Georgia,serif;
+}
+
+.list-info small{
+display:block;
+font:8px Arial,sans-serif;
+letter-spacing:.15em;
+color:#888;
+margin-top:5px;
+}
+
+.list-buttons{
+display:flex;
+gap:8px;
+}
+
+.list-buttons button{
+border:1px solid #aaa;
+background:transparent;
+padding:8px 10px;
+font-size:8px;
+cursor:pointer;
+}
+
+footer{
+border-top:1px solid #cfc8be;
+padding:40px 7vw;
+display:flex;
+justify-content:space-between;
+font-size:9px;
+letter-spacing:.18em;
+}
+
+footer a{
+color:#171614;
+text-decoration:none;
+@media(max-width:800px){
+
+.brand{
+font-size:21px;
+}
+
+.navigation{
+justify-content:flex-start;
+}
+
+.hero{
+min-height:75vh;
+}
+
+.hero-top{
+left:20px;
+right:20px;
+top:25px;
+}
+
+.hero-content{
+left:25px;
+right:25px;
+bottom:45px;
+}
+
+.hero-title{
+font-size:55px;
+}
+
+.intro{
+padding:80px 25px;
+}
+
+.editorial-grid{
+grid-template-columns:1fr;
+padding:20px 25px 80px;
+}
+
+.feature-image{
+height:450px;
+}
+
+.article-grid{
+grid-template-columns:1fr;
+padding:50px 25px 80px;
+}
+
+.article-card-image{
+height:400px;
+}
+
+.article-header{
+padding:70px 25px 50px;
+}
+
+.article-main-image{
+width:100%;
+margin-bottom:60px;
+}
+
+.editor-box{
+padding:25px 20px;
+margin:10px auto;
+}
+
+.list-row{
+flex-direction:column;
+align-items:flex-start;
+}
+
+footer{
+flex-direction:column;
+gap:15px;
+}
+
+}
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="brand">
+INNER SILENCE
+</div>
+
+<div class="subtitle">
+ИЗНУТРИ ТИШИНЫ · DIGITAL MAGAZINE
+</div>
+
+<nav class="navigation">
+
+<button class="active" data-section="Главная">
+ГЛАВНАЯ
+</button>
+
+<button data-section="Женщина">
+ЖЕНЩИНА
+</button>
+
+<button data-section="Мужчина">
+МУЖЧИНА
+</button>
+
+<button data-section="Стиль">
+СТИЛЬ
+</button>
+
+<button data-section="Красота">
+КРАСОТА
+</button>
+
+<button data-section="Дом">
+ДОМ
+</button>
+
+<button data-section="Культура">
+КУЛЬТУРА
+</button>
+
+<button data-section="Деньги">
+ДЕНЬГИ
+</button>
+
+<a href="https://vk.ru/it.noir" target="_blank">
+ВК
+</a>
+
+<button data-section="Эссе">
+ЭССЕ
+</button>
+
+<button data-section="Бестиарии">
+БЕСТИАРИИ
+</button>
+
+<button data-section="Книги">
+КНИГИ
+</button>
+
+<button data-section="Кулинария без проблем">
+КУЛИНАРИЯ БЕЗ ПРОБЛЕМ
+</button>
+
+</nav>
+
+</header>
+<main>
+
+<section id="home">
+
+<div class="hero">
+
+<div class="hero-image" id="heroImage"></div>
+
+<div class="hero-overlay"></div>
+
+<div class="hero-top">
+<span>INNER SILENCE</span>
+<span id="heroIssue">№ 01 · АВГУСТ 2026</span>
+</div>
+
+<div class="hero-content">
+
+<div class="hero-number">
+ИЗНУТРИ ТИШИНЫ
+</div>
+
+<h1 class="hero-title" id="heroTitle">
+Жить так,<br>
+чтобы чувствовать<br>
+себя живой.
+</h1>
+
+<div class="hero-description" id="heroDescription">
+Журнал о женщине, мужчине, стиле, качестве жизни, культуре и том, что происходит внутри нас.
+</div>
+
+<a href="#editorial" class="hero-link">
+ВОЙТИ В ЖУРНАЛ
+</a>
+
+</div>
+
+</div>
+
+
+<section class="intro" id="editorial">
+
+<div class="intro-number">
+01 / INNER SILENCE
+</div>
+
+<h2 class="intro-title">
+Изнутри<br>
+тишины
+</h2>
+
+<div class="intro-text" id="introText">
+Пространство для историй, эссе, образов, бестиариев, книг, стиля, отношений, дома, культуры и денег.
+</div>
+
+</section>
+<section class="editorial-grid">
+
+<div id="featureArticle"></div>
+
+<div class="side-column" id="sideArticles"></div>
+
+</section>
+
+</section>
+
+
+<section class="section-page" id="sectionPage">
+
+<div class="section-header">
+
+<button class="back" onclick="showHome()">
+← ГЛАВНАЯ
+</button>
+
+<div class="section-label" id="sectionLabel"></div>
+
+<h1 class="section-title" id="sectionTitle"></h1>
+
+<div class="section-description" id="sectionDescription"></div>
+
+</div>
+
+
+<div class="article-grid" id="sectionArticles"></div>
+
+</section>
+
+
+<section class="article-page" id="articlePage">
+
+<div class="article-header">
+
+<button class="back" onclick="goBack()">
+← НАЗАД
+</button>
+
+<div class="article-category" id="viewCategory"></div>
+
+<h1 class="article-title" id="viewTitle"></h1>
+
+<div class="article-lead" id="viewLead"></div>
+
+</div>
+
+
+<img id="viewPhoto" class="article-main-image">
+
+<div class="article-body" id="viewText"></div>
+
+</section>
+
+<script>
+console.log("INNER SILENCE loaded");
+</script>
+
+</body>
+</html>
